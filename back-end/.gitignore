@@ -1,0 +1,18 @@
+# Ignore all .geojson files
+Department.geojson
+Municipality.geojson
+RuralArea.geojson
+RuralSector.geojson
+Urban.geojson
+UrbanSector.geojson
+Zone.geojson
+Class.geojson
+my_data_gpkg
+
+
+
+
+*.gpkg
+
+# Or ignore a specific folder containing geojson
+/data/geojson/*
