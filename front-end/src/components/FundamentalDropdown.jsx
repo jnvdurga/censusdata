@@ -55,6 +55,7 @@ function FundamentalDropdown() {
 
         </div>
        <button onClick={(e)=>FilterSubmit(e)}>Apply Filter</button>
+
         </div>
 
         

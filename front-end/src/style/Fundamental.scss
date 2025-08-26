@@ -72,10 +72,10 @@
 
        }
     }
-    button{
+    button ,
+    .button{
         flex: 0.1;
         height: 2.5rem;
-        width: 100%;
         background-color: var(--fd-button-bg-color, #007bff);
         color: #fff;
         border: none;

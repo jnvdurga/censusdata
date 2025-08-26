@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import '../style/Crimepage.scss';
-import ColumbiaMap from '../components/ColombiaMap';
 import LineChart from '../components/LineChartColumbia';
 import Dropdowns from '../components/Dropdown';
 import FundamentalDropdown from '../components/FundamentalDropdown';
+import HeatMap from '../components/MapDetail/HeatMap';
+import ColombiaMap from '../components/ColombiaMap';
+
+
+
 
 function CrimePage() {
   const [selectedFilter, setSelectedFilter] = useState('All');
   const [active, setActive] = useState('Fundamental');
+  const [showContent, setShowContent] = useState('chart'); // State to toggle content visibility
+  
 
   // ✅ Import context values
 
@@ -40,13 +46,19 @@ function CrimePage() {
           </button>
           <div className={`slider ${active === 'Primary' ? 'right' : 'left'}`}></div>
         </div>
+        <button className='data-on-map-btn'  onClick={()=>{setShowContent(prv=> prv==='chart'? "map" : "chart")}}>Data on {showContent ==='chart' ? 'Map' : 'Chart'}</button>
       </div>
 
       {/* Filters */}
       <div className="filter-section">
         {
           active === 'Fundamental' ? (
+            <>
              <FundamentalDropdown />
+             
+             
+            </>
+             
           ) : (
              <Dropdowns onFilterApply={handleFilterApply} />
           )
@@ -58,10 +70,19 @@ function CrimePage() {
       {/* Map and Chart */}
       <div className="chart-container">
         <div className="map">
-          {/* <ColumbiaMap filter={selectedFilter} /> */}
+        
         </div>
         <div className="chart">
-          <LineChart filter={selectedFilter} />
+        {
+          showContent === 'chart' ? (
+                    <LineChart filter={selectedFilter} />
+
+          ) : (
+            <ColombiaMap  />
+          )
+        }
+
+          
         </div>
       </div>
 

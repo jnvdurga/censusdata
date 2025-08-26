@@ -1,15 +1,29 @@
-import React , {useEffect} from "react";
+import React , {useEffect, useState} from "react";
 import { MapContainer, TileLayer, GeoJSON, Popup , useMap} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useGeoDataLoader } from "../MapDetail/GeoDataLoader";
+import {CodeDetailedData} from "../../data/data"
 
 
 function MunicipalityMap({ departmentCode, onSelect, onBack }) { // <-- use onSelect
+       const [municipalityName , setMunicipalityName] = useState([])
+       console.log(municipalityName)
+   
   const { features, loading, error } = useGeoDataLoader(
     departmentCode
       ? `http://localhost:5000/api/municipalities/${departmentCode}`
       : null
   );
+ function FindMunicipalityes(){
+  const Municipality = CodeDetailedData.map(item=>{
+    if(item.code == departmentCode){
+      return item.municipalities
+    }
+   })
+   console.log(Municipality)
+   setMunicipalityName([...Municipality])
+ }
+
 
   const handleSelect = (feature) => {
     if (onSelect) {
@@ -33,6 +47,7 @@ function MunicipalityMap({ departmentCode, onSelect, onBack }) { // <-- use onSe
       const bounds = L.geoJSON(features).getBounds();
       map.fitBounds(bounds, { padding: [20, 20] });
     }
+    
   }, [features, map]);
 
   return null;
@@ -68,7 +83,7 @@ function MunicipalityMap({ departmentCode, onSelect, onBack }) { // <-- use onSe
           >
             <Popup>
               <div>
-                <strong>{feature.properties.NOMBRE}</strong>
+                <strong>{feature.properties.MPIO_CDPMP}</strong>
                 <br />
                 <button
                   onClick={(e) => {

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { MapContainer, TileLayer, GeoJSON, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, useMap, Popup } from "react-leaflet";
+import L from "leaflet";
 import { useGeoDataLoader } from "../MapDetail/GeoDataLoader";
 import { getColor } from "../../utils/colorUtils";
-import L from "leaflet";
 
 export default function RuralSectorMap({
   departmentCode,
@@ -46,24 +46,15 @@ export default function RuralSectorMap({
   };
 
   const onEachFeature = (feature, layer) => {
-    layer.bindPopup(`Sector: ${feature.properties.SETR_CCDGO || "Unknown"}`);
-
     layer.on({
       mouseover: (e) => {
-        e.target.setStyle({
-          weight: 3,
-          color: "#666",
-          fillOpacity: 0.9,
-        });
+        e.target.setStyle({ weight: 3, color: "#666", fillOpacity: 0.9 });
         e.target.bringToFront();
       },
       mouseout: (e) => {
         geoJsonRef.current.resetStyle(e.target);
       },
-      click: (e) => {
-        if (onSelect) onSelect(feature.properties.SETR_CCDGO || null);
-        e.target.bringToFront();
-      },
+      // No click here to only show popup on click
     });
   };
 
@@ -82,12 +73,31 @@ export default function RuralSectorMap({
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <MapRecenter features={features} />
-      <GeoJSON
-        ref={geoJsonRef}
-        data={{ type: "FeatureCollection", features }}
-        style={geoJsonStyle}
-        onEachFeature={onEachFeature}
-      />
+
+      {features.map((feature, idx) => (
+        <GeoJSON
+          key={`${feature.properties.SETR_CCDGO}-${idx}`}
+          ref={geoJsonRef}
+          data={feature}
+          style={geoJsonStyle(feature)}
+          onEachFeature={onEachFeature}
+        >
+          <Popup>
+            <div>
+              <p>Sector: {feature.properties.SETR_CCDGO}</p>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onSelect) onSelect(feature.properties.SETR_CCDGO);
+                }}
+                style={{ marginTop: "5px" }}
+              >
+                Select Sector
+              </button>
+            </div>
+          </Popup>
+        </GeoJSON>
+      ))}
     </MapContainer>
   );
 }

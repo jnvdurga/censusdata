@@ -18,6 +18,7 @@ function ColombiaMap() {
     urbanArea: null,
   });
 
+
   const handleSelect = (level, code) => {
     if (level === "department") {
       setSelected({ department: code, municipality: null, class: null, ruralSector: null, ruralArea: null, urbanArea: null });
@@ -39,7 +40,7 @@ function ColombiaMap() {
 
   return (
     <div>
-      {currentLevel === "department" && <DepartmentMap onSelect={code => handleSelect("department", code)} />}
+      {currentLevel === "department" && <DepartmentMap onSelect={code => handleSelect("department", code)} crimeData="crimeData" />}
 
       {currentLevel === "municipality" && (
         <MunicipalityMap

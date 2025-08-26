@@ -10,6 +10,7 @@ export default function ClassMap({ departmentCode, municipalityCode, onSelect })
       ? `http://localhost:5000/api/classes/${departmentCode}/${municipalityCode}`
       : null
   );
+
 function MapRecenter({ features }) {
   const map = useMap();
 
@@ -50,7 +51,7 @@ function MapRecenter({ features }) {
         >
           <Popup>
             <div>
-              <p>{f.properties.MPIO_CLASE}</p>
+              <p>{f.properties.CLAS_CCDGO}</p>
               <button
                 onClick={(e) => {
                   e.stopPropagation(); // stop Leaflet capturing event

@@ -28,7 +28,9 @@ body {
   
 }
 
-.toggle-btn {
+.toggle-btn 
+
+{
   flex: 1;
   z-index: 2;
   border: none;
@@ -45,8 +47,24 @@ body {
   &:focus {
   outline: none;
 }
-  
+
 }
+
+  .data-on-map-btn{
+    display: flex;
+    background: #0088ffec;
+    border-radius: 1.2rem;
+    margin-left: 10px;
+    height: 2.9rem;
+    color: white;
+    text-align: center;
+
+  }
+
+  .data-on-map-btn:hover{
+      background: #1067ad;
+      transition: 0.5s;
+    }
 
 
 .toggle-btn.active {
@@ -176,9 +194,11 @@ body {
 
 .map, .chart {
   flex: 1;
+  height: auto;
   min-width: 45vw;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow-y:hidden;
 }

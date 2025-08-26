@@ -12,7 +12,7 @@ function IndicatorPage() {
       <div className="card" onClick={() => navigate('/map-area-details')}>
         <img src={columbia} alt="Colombia Map" className="card-image" />
         <div className="card-content">
-          <h2 className="card-title">Colombia Map Viewer</h2>
+          <h2 className="card-title">Colombia census 2020</h2>
           <p className="card-description">
             Explore interactive map layers showing population, crime trends and district boundaries across Colombia.
           </p>
@@ -22,7 +22,7 @@ function IndicatorPage() {
       <div className="card" onClick={()=>navigate('/crime')}>
         <img src={lineChart} alt="Line Chart" className="card-image" />
         <div className="card-content">
-          <h2 className="card-title">Population & Crime Trends</h2>
+          <h2 className="card-title">Crime analysis and Trends</h2>
           <p className="card-description">
             Visualize how the population and criminal case statistics have changed over time using dynamic charts.
           </p>
